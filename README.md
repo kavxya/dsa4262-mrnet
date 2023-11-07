@@ -4,6 +4,8 @@
 
 If you want to retrain the network on your own you have to ask for the data from Stanford via this <a href="https://stanfordmlgroup.github.io/competitions/mrnet/">link</a>.
 
+Otherwise you can download it from <a href="https://drive.google.com/drive/folders/1cmZhviZnH6GOqRXTQBb90z2HkjZ7ZSv3">gdrive link</a>
+
 Once you download the data, create a `data` folder and place it at the root of the project. You should have two folders inside: `train` and `valid` as well as a bunch of csv files.
 
 To run the script you can execute it with the following arguments:
