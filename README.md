@@ -47,9 +47,11 @@ Using tensorboard to visualize the training and validation data:
 
 
 ```
-tensorboard --logdir logs/abnormal/sagittal
+tensorboard --logdir logs/abnormal
+
+#You can add: /{sagittal/axial/coronal} for a more drilled down observation
 ```
 
-![Tensorboard Mockup](images/tensorboard_sample.png)
+![Tensorboard Mockup](images/tensorboard_sample2.png)
 
 You are able to select the various models you wish to compare and smoothing parameters for visualization.
