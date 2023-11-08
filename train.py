@@ -161,7 +161,7 @@ def run(args):
                 shutil.rmtree(log_root_folder + f)
 
     now = datetime.now()
-    logdir = log_root_folder + now.strftime("%Y%m%d-%H%M%S") + "/"
+    logdir = log_root_folder + args.prefix_name + ":" + now.strftime("%Y%m%d-%H%M%S") + "/"
     os.makedirs(logdir)
 
     writer = SummaryWriter(logdir)
