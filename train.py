@@ -18,11 +18,10 @@ from tensorboardX import SummaryWriter
 import warnings
 warnings.filterwarnings("ignore")
 
-
 from dataloader import MRDataset
-import model_resnet
 
-model = model_resnet
+import model_alexnet
+model = model_alexnet
 
 from sklearn import metrics
 
@@ -180,7 +179,7 @@ def run(args):
     # train_dataset = MRDataset('./data/', args.task,
     #                           args.plane, transform=augmentor, train=True)
     train_dataset = MRDataset('./data/', args.task,
-                              args.plane, train=True)
+                              args.plane, args.train_initial, train=True)
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=1, shuffle=True, num_workers=11, drop_last=False)
 
@@ -276,6 +275,7 @@ def parse_arguments():
     parser.add_argument('--save_model', type=int, choices=[0, 1], default=1)
     parser.add_argument('--patience', type=int, default=5)
     parser.add_argument('--log_every', type=int, default=100)
+    parser.add_argument('--train_initial', type=bool, default=False)
     args = parser.parse_args()
     return args
 
