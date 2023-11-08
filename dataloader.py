@@ -11,16 +11,22 @@ from torchvision import transforms
 
 
 class MRDataset(data.Dataset):
-    def __init__(self, root_dir, task, plane, train=True, transform=None, weights=None):
+    def __init__(self, root_dir, task, plane, train=True, trainInitial = False, transform=None, weights=None):
         super().__init__()
         self.task = task
         self.plane = plane
         self.root_dir = root_dir
         self.train = train
+        self.trainInitial = trainInitial
         if self.train:
-            self.folder_path = self.root_dir + 'train/{0}/'.format(plane)
-            self.records = pd.read_csv(
-                self.root_dir + 'train-{0}.csv'.format(task), header=None, names=['id', 'label'])
+            if self.trainInitial: # Train using smaller train set (80 rows)
+                self.folder_path = self.root_dir + 'train/{0}/'.format(plane)
+                self.records = pd.read_csv(
+                    self.root_dir + 'train_initial-{0}.csv'.format(task), header=None, names=['id', 'label'])
+            else: # Train using normal train set (250 rows)
+                self.folder_path = self.root_dir + 'train/{0}/'.format(plane)
+                self.records = pd.read_csv(
+                    self.root_dir + 'train-{0}.csv'.format(task), header=None, names=['id', 'label'])
         else:
             transform = None
             self.folder_path = self.root_dir + 'valid/{0}/'.format(plane)

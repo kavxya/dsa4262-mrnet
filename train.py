@@ -177,7 +177,7 @@ def run(args):
     # train_dataset = MRDataset('./data/', args.task,
     #                           args.plane, transform=augmentor, train=True)
     train_dataset = MRDataset('./data/', args.task,
-                              args.plane, train=True)
+                              args.plane, train=True, trainInitial=True)
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=1, shuffle=True, num_workers=11, drop_last=False)
 
