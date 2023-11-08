@@ -37,3 +37,19 @@ example to train a model to detect acl tears on the sagittal plane for a 20 epoc
 Note: Before running the script, add the following (empty) folders at the root of the project:
 - models
 - logs
+
+
+
+
+## Evaluating fit:
+
+Using tensorboard to visualize the training and validation data:
+
+
+```
+tensorboard --logdir logs/abnormal/sagittal
+```
+
+![Tensorboard Mockup](images/tensorboard_sample.png)
+
+You are able to select the various models you wish to compare and smoothing parameters for visualization.
