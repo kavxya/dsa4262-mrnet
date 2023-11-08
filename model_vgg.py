@@ -22,13 +22,6 @@ class MRNet(nn.Module):
         # features = self.pretrained_model.features(x)
         features = self.pretrained_model(x)
         # print(f"Features: {features.shape}")
-
-        ## Not using this for now
-        # pooled_features = self.pooling_layer(features)
-        # print(f"Pooled Features 1: {pooled_features.shape}")
-        # pooled_features = pooled_features.view(pooled_features.size(0), -1)
-        # print(f"Pooled Features 2: {pooled_features.shape}")
-
         pooled_features = features
         flattened_features = torch.max(pooled_features, 0, keepdim=True)[0]
         # print(f"Flattened Features: {flattened_features.shape}")

@@ -15,11 +15,14 @@ from torchvision import transforms
 import torch.nn.functional as F
 from tensorboardX import SummaryWriter
 
-from dataloader import MRDataset
-import model_alexnet
-import model
+import warnings
+warnings.filterwarnings("ignore")
 
-model = model_alexnet
+
+from dataloader import MRDataset
+import model_resnet
+
+model = model_resnet
 
 from sklearn import metrics
 
@@ -161,7 +164,7 @@ def run(args):
                 shutil.rmtree(log_root_folder + f)
 
     now = datetime.now()
-    logdir = log_root_folder + now.strftime("%Y%m%d-%H%M%S") + "/"
+    logdir = log_root_folder + args.prefix_name + ":" + now.strftime("%Y%m%d-%H%M%S") + "/"
     os.makedirs(logdir)
 
     writer = SummaryWriter(logdir)
