@@ -15,11 +15,14 @@ from torchvision import transforms
 import torch.nn.functional as F
 from tensorboardX import SummaryWriter
 
-from dataloader import MRDataset
-import model_alexnet
-import model
+import warnings
+warnings.filterwarnings("ignore")
 
-model = model_alexnet
+
+from dataloader import MRDataset
+import model_resnet
+
+model = model_resnet
 
 from sklearn import metrics
 
