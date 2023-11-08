@@ -11,7 +11,7 @@ from torchvision import transforms
 
 
 class MRDataset(data.Dataset):
-    def __init__(self, root_dir, task, plane, train=True, trainInitial = False, transform=None, weights=None):
+    def __init__(self, root_dir, task, plane, trainInitial=False, train=True,  transform=None, weights=None):
         super().__init__()
         self.task = task
         self.plane = plane
