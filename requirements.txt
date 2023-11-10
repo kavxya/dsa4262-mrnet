@@ -19,3 +19,5 @@ torchsample==0.1.0
 torchvision==0.16.0
 typing_extensions==4.8.0
 urllib3==2.0.7
+ipywidgets
+tqdm
