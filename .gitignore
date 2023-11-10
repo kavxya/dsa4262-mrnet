@@ -3,3 +3,5 @@ data/
 myenv/
 *.local
 *.pth
+*.pyc
+*.out
