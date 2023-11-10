@@ -58,7 +58,7 @@ def extract_predictions(task, plane, train_initial, prefix_name = '', train=True
 
 def run(args):
     task = args.task
-    prefix_name = args.prefix_name
+    prefix_name = '' if args.prefix_name is None else args.prefix_name
     train_initial = args.train_initial
     print("ARGURMENT: ", args.train_initial) ####bug here
     # Training set
