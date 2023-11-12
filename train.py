@@ -21,6 +21,8 @@ warnings.filterwarnings("ignore")
 from dataloader import MRDataset
 
 import model_alexnet
+from model_alex_ensemble import AlexEnsembleModel
+
 model = model_alexnet
 
 from sklearn import metrics
@@ -156,6 +158,10 @@ def get_lr(optimizer):
 
 def run(args):
     log_root_folder = "./logs/{0}/{1}/".format(args.task, args.plane)
+
+    if args.ensemble != 0:
+        args.prefix_name += "_ensemble_" + str(args.ensemble)
+
     if args.flush_history == 1:
         objects = os.listdir(log_root_folder)
         for f in objects:
@@ -179,16 +185,19 @@ def run(args):
     # train_dataset = MRDataset('./data/', args.task,
     #                           args.plane, transform=augmentor, train=True)
     train_dataset = MRDataset('./data/', args.task,
-                              args.plane, args.train_initial, train=True)
+                              args.plane, args.slices, args.train_initial, train=True)
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=1, shuffle=True, num_workers=11, drop_last=False)
 
     validation_dataset = MRDataset(
-        './data/', args.task, args.plane, train=False)
+        './data/', args.task, args.plane, args.slices, train=False)
     validation_loader = torch.utils.data.DataLoader(
         validation_dataset, batch_size=1, shuffle=-True, num_workers=11, drop_last=False)
 
     mrnet = model.MRNet()
+
+    if args.ensemble != 0:
+        mrnet = AlexEnsembleModel(args.ensemble)
 
     if torch.cuda.is_available():
         mrnet = mrnet.cuda()
@@ -260,7 +269,9 @@ def run(args):
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--task', type=str, required=True,
+    parser.add_argument('-t', '--task', type=str, 
+                        # required=True,
+                        default = 'abnormal',
                         choices=['abnormal', 'acl', 'meniscus'])
     parser.add_argument('-p', '--plane', type=str, required=True,
                         choices=['sagittal', 'coronal', 'axial'])
@@ -275,7 +286,9 @@ def parse_arguments():
     parser.add_argument('--save_model', type=int, choices=[0, 1], default=1)
     parser.add_argument('--patience', type=int, default=5)
     parser.add_argument('--log_every', type=int, default=100)
-    parser.add_argument('--train_initial', type=bool, default=False)
+    parser.add_argument('--train_initial', type=int, default=0)
+    parser.add_argument('--ensemble', type=int, default=0)
+    parser.add_argument('--slices', type=int, default=5)
     args = parser.parse_args()
     return args
 
