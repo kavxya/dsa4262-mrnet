@@ -11,13 +11,14 @@ from torchvision import transforms
 
 
 class MRDataset(data.Dataset):
-    def __init__(self, root_dir, task, plane, trainInitial=False, train=True,  transform=None, weights=None):
+    def __init__(self, root_dir, task, plane, slices, trainInitial=0, train=True,  transform=None, weights=None):
         super().__init__()
         self.task = task
         self.plane = plane
         self.root_dir = root_dir
         self.train = train
         self.trainInitial = trainInitial
+        self.slices = slices
         if self.train:
             if self.trainInitial: # Train using smaller train set (80 rows)
                 self.folder_path = self.root_dir + 'train/{0}/'.format(plane)
@@ -55,7 +56,8 @@ class MRDataset(data.Dataset):
 
         #Middle 3 layers
         middle = len(array)//2
-        array_mini = array[middle-1:middle+2]
+        half_slice = self.slices//2
+        array_mini = array[middle-half_slice:middle+half_slice+1]
         array = array_mini
 
 
