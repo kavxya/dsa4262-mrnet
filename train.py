@@ -203,6 +203,7 @@ def run(args):
         mrnet = mrnet.cuda()
 
     optimizer = optim.Adam(mrnet.parameters(), lr=args.lr, weight_decay=0.1)
+    # optimizer = optim.SGD(mrnet.parameters(), lr=args.lr, weight_decay=0.1)
 
     if args.lr_scheduler == "plateau":
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
