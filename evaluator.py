@@ -5,6 +5,7 @@ from datetime import datetime
 import argparse
 import numpy as np
 from tqdm.notebook import tqdm
+import matplotlib.pyplot as plt
 
 import torch
 import torch.nn as nn
@@ -97,8 +98,11 @@ def run(args):
     y_pred = [1 if x >= 0.5 else 0 for x in y_pred_prob]
 
     # Metrics to print
+    print(logreg.coef_)
     print(metrics.roc_auc_score(y_val, y_pred))
-    print(metrics.confusion_matrix(y_val, y_pred))
+    disp = metrics.ConfusionMatrixDisplay(metrics.confusion_matrix(y_val, y_pred))
+    disp.plot()
+    plt.show()
 
 
 def parse_arguments():
